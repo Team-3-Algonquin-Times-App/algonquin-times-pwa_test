@@ -40,8 +40,17 @@ export default function Page() {
             day: "numeric",
           });
 
+          const imageUrl = post.parsely?.meta?.image?.url;
+
           return (
             <li key={post.id} className={styles.postItem}>
+              {imageUrl && (
+                <img
+                  src={imageUrl}
+                  alt={post.title.rendered}
+                  className={styles.postImage}
+                />
+              )}
               <a
                 href={post.link}
                 rel="noopener noreferrer"
