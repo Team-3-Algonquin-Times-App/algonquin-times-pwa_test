@@ -37,17 +37,17 @@ export default async function Page() {
             day: "numeric",
           });
 
-          const imageUrl = post?.parsely?.meta?.image?.url;
+          // const imageUrl = post?.parsely?.meta?.image?.url;
 
           return (
             <li key={post.id} className={styles.postItem}>
-              {imageUrl && (
+              {/* {imageUrl && (
                 <img
                   src={imageUrl}
                   alt={post.title.rendered}
                   className={styles.postImage}
                 />
-              )}
+              )} */}
               <a
                 href={post.link}
                 rel="noopener noreferrer"
