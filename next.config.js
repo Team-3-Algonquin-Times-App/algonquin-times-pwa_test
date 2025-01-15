@@ -8,7 +8,7 @@ const withPWA = require("@ducanh2912/next-pwa").default({
   swcMinify: true,
   disable: false,
   workboxOptions: {
-    disableDevLogs: false,
+    disableDevLogs: true,
   },
 
 });
