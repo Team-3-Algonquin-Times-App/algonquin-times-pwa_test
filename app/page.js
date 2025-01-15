@@ -1,33 +1,30 @@
 "use client";
 import styles from "./page.module.css";
-import { useEffect, useState } from "react";
 
-export default function Page() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+async function fetchPosts() {
+  try {
+    const response = await fetch("https://algonquintimes.com/wp-json/wp/v2/posts", {
+      next: { revalidate: 60 },
+    });
 
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await fetch("https://algonquintimes.com/wp-json/wp/v2/posts");
-        if (!response.ok) {
-          throw new Error("Failed to fetch posts from WordPress API");
-        }
-        const data = await response.json();
-        setPosts(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
+    if (!response.ok) {
+      throw new Error("Failed to fetch posts from WordPress API");
     }
 
-    fetchPosts();
-  }, []);
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    return [];
+  }
+}
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+export default async function Page() {
+
+  const posts = await fetchPosts();
+
+  if (!posts || posts.length === 0) {
+    return <p>No posts available at the moment.</p>;
+  }
 
   return (
     <div className={styles.container}>
@@ -40,7 +37,7 @@ export default function Page() {
             day: "numeric",
           });
 
-          const imageUrl = post.parsely?.meta?.image?.url;
+          const imageUrl = post?.parsely?.meta?.image?.url;
 
           return (
             <li key={post.id} className={styles.postItem}>
