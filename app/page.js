@@ -33,21 +33,30 @@ export default function Page() {
     <div className={styles.container}>
       <h1 className={styles.title}>Algonquin Times API Test and PWA</h1>
       <ul className={styles.postList}>
-        {posts.map((post) => (
-          <li key={post.id} className={styles.postItem}>
-            <a
-              href={post.link}
-              rel="noopener noreferrer"
-              className={styles.postLink}
-            >
-              <h2 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
-            </a>
-            <p
-              dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
-              className={styles.postExcerpt}
-            />
-          </li>
-        ))}
+        {posts.map((post) => {
+          const formattedDate = new Date(post.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+
+          return (
+            <li key={post.id} className={styles.postItem}>
+              <a
+                href={post.link}
+                rel="noopener noreferrer"
+                className={styles.postLink}
+              >
+                <h2 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+              </a>
+              <p className={styles.postDate}>{formattedDate}</p>
+              <p
+                dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
+                className={styles.postExcerpt}
+              />
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
