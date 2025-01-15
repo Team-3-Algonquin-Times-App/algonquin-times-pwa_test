@@ -14,6 +14,13 @@
   margin-bottom: 20px;
 }
 
+.postDate {
+  color: #888;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .postList {
   list-style: none;
   padding: 0;
@@ -42,3 +49,4 @@
   font-size: 14px;
   margin-top: 8px;
 }
+
